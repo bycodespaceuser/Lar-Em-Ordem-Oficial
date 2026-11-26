@@ -1,4 +1,6 @@
 INICIAR O SPRING BOOT
+
+chmod +x mvnw
 ./mvnw spring-boot:run
 
 H2 CONSOLE (CODESPACES, porta privada)
