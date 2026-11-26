@@ -1,0 +1,23 @@
+INICIAR O SPRING BOOT
+./mvnw spring-boot:run
+
+H2 CONSOLE (CODESPACES, porta privada)
+H2_CONSOLE_REMOTE=true CONSOLE_PASSWORD=DemonstracaoLocal2026 ./mvnw spring-boot:run
+Adicionar /h2-console ao endereço do Codespaces.
+Login do console: demo / DemonstracaoLocal2026
+JDBC URL: jdbc:h2:file:./dados/laremordem
+User Name: sa
+Password: deixar em branco
+
+H2 NO RENDER
+Adicionar /h2-console ao endereço hospedado, se habilitado.
+Login do console: CONSOLE_USER e CONSOLE_PASSWORD definidos no Render.
+JDBC URL: jdbc:h2:file:./dados/laremordem (ou DB_URL, se alterado)
+User Name: DB_USER (padrão: sa)
+Password: DB_PASSWORD definida no Render.
+
+SELECT * FROM moradores;
+SELECT * FROM comodos;
+SELECT * FROM categorias;
+SELECT * FROM tarefas;
+SELECT * FROM responsabilidades;

@@ -1,0 +1,32 @@
+/* Visual das páginas. */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; background: #f4f5f7; color: #303943; }
+nav { background: #22282f; padding: 19px 5%; display: flex; gap: 24px; flex-wrap: wrap; }
+nav a { color: white; text-decoration: none; font-size: 15px; }
+nav a:hover { text-decoration: underline; }
+main { max-width: 1000px; margin: 36px auto; padding: 0 22px; }
+h1 { color: #253649; font-size: 30px; margin: 0 0 25px; }
+h2 { font-size: 18px; margin: 0 0 18px; }
+.inicio { min-height: 65vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.inicio h1 { font-size: 42px; margin-bottom: 12px; }
+.inicio p { max-width: 530px; color: #586573; line-height: 1.6; }
+section { background: white; border: 1px solid #dce1e6; border-radius: 4px; padding: 22px; margin-bottom: 22px; }
+label { display: block; margin: 12px 0 6px; font-size: 14px; }
+input:not([type=hidden]), select { display: block; width: 100%; padding: 10px; border: 1px solid #cbd2da; border-radius: 3px; font: inherit; margin-bottom: 12px; background: white; }
+button, .editar { background: #344b63; color: white; border: 0; border-radius: 3px; padding: 9px 14px; font: inherit; font-size: 14px; cursor: pointer; text-decoration: none; }
+button:hover, .editar:hover { opacity: .85; }
+.tabela { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
+th, td { padding: 12px 9px; border-bottom: 1px solid #e2e6ea; }
+th { background: #f4f5f7; }
+.acoes { white-space: nowrap; }
+.acoes form { display: inline-block; margin: 2px; }
+.editar { display: inline-block; background: #eaf0f6; color: #344b63; }
+.excluir { background: #faeaea; color: #a64040; }
+.resumo { display: flex; gap: 15px; background: transparent; border: 0; padding: 0; }
+.resumo div { flex: 1; background: white; border: 1px solid #dce1e6; padding: 15px; border-radius: 4px; font-size: 14px; }
+.resumo strong { display: block; font-size: 28px; margin-top: 8px; }
+.concluida { color: #287344; }
+.pendente { color: #93601f; }
+.erro { color: #a64040; }
+@media (max-width: 600px) { nav { gap: 13px; } .resumo { flex-wrap: wrap; } main { margin-top: 24px; } }

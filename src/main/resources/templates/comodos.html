@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cômodos | Lar em Ordem</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <nav th:replace="~{fragmentos :: menu}"></nav>
+    <main>
+        <h1>Cômodos</h1>
+        <p class="erro" th:if="${erro}" th:text="${erro}"></p>
+        <section>
+            <h2 th:text="${registro.id == null ? 'Novo cadastro' : 'Editar cadastro'}">Novo cadastro</h2>
+            <!-- Formulário enviado ao Controller. -->
+            <form th:action="@{/comodos/salvar}" method="post">
+                <input type="hidden" name="id" th:value="${registro.id}">
+                <label for="nome">Nome do cômodo</label>
+                <input id="nome" name="nome" required maxlength="255" th:value="${registro.nome}">
+                <button type="submit" th:text="${registro.id == null ? 'Cadastrar' : 'Salvar alterações'}">Cadastrar</button>
+                <a th:if="${registro.id != null}" th:href="@{/comodos}">Cancelar</a>
+            </form>
+        </section>
+        <section>
+            <h2>Registros cadastrados</h2>
+            <div class="tabela">
+            <table>
+                <thead><tr><th>ID</th> <th>Nome</th><th>Ações</th></tr></thead>
+                <tbody>
+                    <!-- Percorre os registros consultados no banco. -->
+                    <tr th:each="item : ${registros}">
+                        <td th:text="${item.id}"></td>
+                        <td th:text="${item.nome}"></td>
+                        <td class="acoes">
+                            <a class="editar" th:href="@{/comodos/editar/{id}(id=${item.id})}">Editar</a>
+                            <form th:action="@{/comodos/excluir/{id}(id=${item.id})}" method="post"><button class="excluir" type="submit">Excluir</button></form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            <p th:if="${registros.isEmpty()}">Nenhum registro cadastrado.</p>
+        </section>
+    </main>
+</body>
+</html>

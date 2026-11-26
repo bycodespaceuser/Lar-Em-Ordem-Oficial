@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Responsabilidades | Lar em Ordem</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <nav th:replace="~{fragmentos :: menu}"></nav>
+    <main>
+        <h1>Responsabilidades</h1>
+        <p class="erro" th:if="${erro}" th:text="${erro}"></p>
+        <section class="resumo">
+            <div>Total de atribuições<strong th:text="${total}">0</strong></div>
+            <div>Concluídas<strong class="concluida" th:text="${concluidas}">0</strong></div>
+            <div>Pendentes<strong class="pendente" th:text="${pendentes}">0</strong></div>
+        </section>
+        <section>
+            <h2 th:text="${registro.id == null ? 'Novo cadastro' : 'Editar cadastro'}">Novo cadastro</h2>
+            <!-- Formulário enviado ao Controller. -->
+            <form th:action="@{/responsabilidades/salvar}" method="post">
+                <input type="hidden" name="id" th:value="${registro.id}">
+                <label for="moradorId">Morador</label>
+                <select id="moradorId" name="moradorId" required>
+                    <option value="">Selecione uma opção</option>
+                    <option th:each="item : ${moradores}" th:value="${item.id}" th:text="${item.nome}" th:selected="${registro.morador != null and registro.morador.id == item.id}"></option>
+                </select>
+                <label for="tarefaId">Tarefa</label>
+                <select id="tarefaId" name="tarefaId" required>
+                    <option value="">Selecione uma opção</option>
+                    <option th:each="item : ${tarefas}" th:value="${item.id}" th:text="${item.nome}" th:selected="${registro.tarefa != null and registro.tarefa.id == item.id}"></option>
+                </select>
+                <label for="concluida">Situação</label>
+                <select id="concluida" name="concluida">
+                    <option value="false" th:selected="${!registro.concluida}">Pendente</option>
+                    <option value="true" th:selected="${registro.concluida}">Concluída</option>
+                </select>
+                <button type="submit" th:text="${registro.id == null ? 'Cadastrar' : 'Salvar alterações'}">Cadastrar</button>
+                <a th:if="${registro.id != null}" th:href="@{/responsabilidades}">Cancelar</a>
+            </form>
+        </section>
+        <section>
+            <h2>Registros cadastrados</h2>
+            <div class="tabela">
+            <table>
+                <thead><tr><th>ID</th><th>Morador</th><th>Tarefa</th><th>Situação</th><th>Ações</th></tr></thead>
+                <tbody>
+                    <!-- Percorre os registros consultados no banco. -->
+                    <tr th:each="item : ${registros}">
+                        <td th:text="${item.id}"></td>
+                        <td th:text="${item.morador.nome}"></td>
+                        <td th:text="${item.tarefa.nome}"></td>
+                        <td th:text="${item.concluida ? 'Concluída' : 'Pendente'}" th:class="${item.concluida ? 'concluida' : 'pendente'}"></td>
+                        <td class="acoes">
+                            <a class="editar" th:href="@{/responsabilidades/editar/{id}(id=${item.id})}">Editar</a>
+                            <form th:action="@{/responsabilidades/excluir/{id}(id=${item.id})}" method="post"><button class="excluir" type="submit">Excluir</button></form>
+                            <form th:action="@{/responsabilidades/alternar/{id}(id=${item.id})}" method="post"><button type="submit" th:text="${item.concluida ? 'Reabrir' : 'Concluir'}"></button></form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+            <p th:if="${registros.isEmpty()}">Nenhum registro cadastrado.</p>
+        </section>
+    </main>
+</body>
+</html>
